@@ -1,0 +1,26 @@
+﻿@model Author
+
+@{
+    ViewData["Title"] = "Author detail";
+}
+
+<div class="text-center" xmlns="http://www.w3.org/1999/html">
+    <h1 class="display-4">@ViewData["Name"]</h1>
+    
+    <form class="card" asp-action="Create" asp-controller="Messages" method="post">
+        <div class="form-group">
+            <label for="Title">Name</label>
+            <input asp-for="Name" type="text" class="form-control" placeholder="Enter Name">
+            <span asp-validation-for="Name" class="text-danger"></span>
+            <label for="Author">Surname</label>
+            <input asp-for="Surname" type="text" class="form-control" placeholder="Enter Surname">
+            <span asp-validation-for="Surname" class="text-danger"></span>
+
+            
+            <input asp-for="Id" type="hidden" class="form-control">
+        </div>
+        
+        <button type="submit" class="btn btn-sm btn-outline-primary">Send</button>
+    </form>
+    
+</div>

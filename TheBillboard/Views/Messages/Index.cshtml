@@ -6,7 +6,9 @@
 
 <div class="text-center">
     <h1 class="display-4">@ViewData["Title"]</h1>
-    
+     @Html.ActionLink("Create", "Create", "Messages", default, new { @class = "btn btn-sm btn-outline-primary w-25" })
+
+
     <ul class="list-group list-group-flush align-items-center">
         @foreach (var message in Model)
         {

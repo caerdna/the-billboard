@@ -14,7 +14,7 @@ public class MessagesController : Controller
         _messageGateway = messageGateway;
         _logger = logger;
     }
-    
+
     public IActionResult Index()
     {
         var messages = _messageGateway.GetAll();
@@ -22,26 +22,51 @@ public class MessagesController : Controller
     }
 
     [HttpPost]
-    public IActionResult Create(Message message) 
+    public IActionResult Create(Message message)
     {
-        if (!ModelState.IsValid)
+
+
+        if (message.Id is null)
         {
-            return View();
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+            message.CreatedAt = DateTime.Now;
+            message.UpdatedAt = DateTime.Now;
+            message.Id = _messageGateway.RequestId();
+            _messageGateway.Create(message);
         }
-        
+        else
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("Update");
+            }
+            message.UpdatedAt = DateTime.Now;
+            _messageGateway.Update(message);
+        }
+
         _logger.LogInformation($"Message received: {message.Title}");
         return RedirectToAction("Index");
+
     }
-    
+
     public IActionResult Detail(int id)
     {
         var message = _messageGateway.GetById(id);
         return View(message);
     }
-    
+
     public IActionResult Create()
     {
         return View();
+    }
+
+    public IActionResult Update(int id)
+    {
+        var message = _messageGateway.GetById(id);
+        return View(message);
     }
 
     public IActionResult Delete(int id)
