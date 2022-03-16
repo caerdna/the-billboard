@@ -10,7 +10,7 @@
     <form class="card" asp-action="Create" asp-controller="Messages" method="post">
         <div class="form-group">
             <label for="Message.Title">Title</label>
-            <input asp-for="Message.Title" type="text" class="form-control" placeholder="Enter title">
+            <input required asp-for="Message.Title" type="text" class="form-control" placeholder="Enter title">
             <span asp-validation-for="Message.Title" class="text-danger"></span>
 
             <label for="Message.IdAuthor">Author:</label>
@@ -23,7 +23,7 @@
             </select>
 
             <label for="Message.Body">Message</label>
-            <input asp-for="Message.Body" type="text" class="form-control" placeholder="Enter message">
+            <input required asp-for="Message.Body" type="text" class="form-control" placeholder="Enter message">
             <span asp-validation-for="Message.Body" class="text-danger"></span>
 
             <input asp-for="Message.Id" type="hidden" class="form-control">
