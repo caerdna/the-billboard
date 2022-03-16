@@ -1,14 +1,14 @@
 ﻿using TheBillboard.Models;
 
-namespace TheBillboard.Abstract
-{
+namespace TheBillboard.Abstract;
+
     public interface IAuthorGateway
     {
         int RequestId();
-        IEnumerable<Author> GetAll();
+        Dictionary<int,Author> GetAll();
         Author? GetById(int id);
         Author Create(Author author);
         Author Update(Author author);
         void Delete(int id);
     }
-}
+

@@ -6,7 +6,7 @@
 
 <div class="text-center">
     <h1 class="display-4">@ViewData["Title"]</h1>
-     @Html.ActionLink("Create", "Create", "Messages", default, new { @class = "btn btn-sm btn-outline-primary w-25" })
+    @Html.ActionLink("Create", "Create", "Messages", default, new { @class = "btn btn-sm btn-outline-primary w-25" })
 
 
     <ul class="list-group list-group-flush align-items-center">
@@ -16,7 +16,9 @@
                 <div class="card">
                     <div class="d-flex flex-column card-body">
                         <h5 class="card-title">@message.Title</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">@message.Author</h6>
+                        <!--
+                        <h6 class="card-subtitle mb-2 text-muted">@message.IdAuthor</h6>
+                        -->
                         <p class="card-text">@message.Body</p>
                         @Html.ActionLink("Detail", "Detail", new { id = message.Id }, new { @class = "btn btn-sm btn-outline-primary w-25" })
                     </div>

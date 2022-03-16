@@ -6,8 +6,7 @@ public record Message(
     string Title, 
     [Required(ErrorMessage = "Il campo body e' obbligatorio"), MinLength(4, ErrorMessage = "Il campo body deve essere lungo almeno 4 caratteri")]
     string Body,
-    [Required(ErrorMessage = "Il campo autore e' obbligatorio"), MinLength(1, ErrorMessage = "Il campo autore deve essere lungo almeno 1 carattere")]
-    string Author, 
+    int IdAuthor,
     DateTime? CreatedAt = default,
     DateTime? UpdatedAt = default, 
     int? Id = default)

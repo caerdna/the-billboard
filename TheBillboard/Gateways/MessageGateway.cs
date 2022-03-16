@@ -6,10 +6,10 @@ namespace TheBillboard.Gateways;
 public class MessageGateway : IMessageGateway
 {
     private int _lastId = 2;
-    private ICollection<Message> _messages = new List<Message>()
+    private Dictionary<int, Message> _messages = new Dictionary<int, Message>()
     {
-        new("Hello  World!", "What A Wonderful World!", "Alberto", DateTime.Now.AddHours(-2), DateTime.Now.AddHours(-1), 1),
-        new("Hello  World!", "What A Wonderful World!", "Alberto", DateTime.Now, DateTime.Now, 2),
+        {1, new("Hello  World!", "What A Wonderful World!",1, DateTime.Now.AddHours(-4), DateTime.Now.AddHours(-3), 1) },
+        {2, new("Hello  World!", "What A Wonderful World!",1, DateTime.Now.AddHours(-2), DateTime.Now.AddHours(-1), 2) },
     };
 
     public int RequestId()
@@ -18,30 +18,26 @@ public class MessageGateway : IMessageGateway
         return _lastId;
     }
 
-    public IEnumerable<Message> GetAll() => _messages;
+    public IEnumerable<Message> GetAll() => _messages.Values;
 
-    public Message? GetById(int id) => _messages.SingleOrDefault(message => message.Id == id);
+    public Message GetById(int id) => _messages.ContainsKey(id) ? _messages[id] : new Message("Error", "message retrieval failed", 0);
 
     public Message Create(Message message)
     {
-        if (!_messages.Any(item => message.Id == item.Id))
+        if (!_messages.ContainsKey((int)message.Id))
         {
-            _messages.Add(message);
+            _messages.Add((int)message.Id, message);
             return message;
         }
         else
-            return null;
+            return new Message("Error", "message creation failed", 0);
     }
 
-    public void Delete(int id) =>
-        _messages = _messages
-            .Where(message => message.Id != id)
-            .ToList();
+    public void Delete(int id) => _messages.Remove(id);
 
     public Message Update(Message message)
     {
-        Delete((int)message.Id);
-        _messages.Add(message);
+        _messages[(int)message.Id] = message;
         return message;
     }
 

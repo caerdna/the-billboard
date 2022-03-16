@@ -1,4 +1,4 @@
-﻿@model Message
+﻿@model MessageAndAuthors
 
 @{
     ViewData["Title"] = "Edit Message";
@@ -7,22 +7,29 @@
 <div class="text-center" xmlns="http://www.w3.org/1999/html">
     <h1 class="display-4">@ViewData["Title"]</h1>
 
-    <form class="card" asp-action="Create" asp-controller="Messages" method="post">
+    <form class="card" asp-action="Update" asp-controller="Messages" method="post">
         <div class="form-group">
-            <label for="Title">Title</label>
-            <input asp-for="Title" type="text" class="form-control">
-            <span asp-validation-for="Title" class="text-danger"></span>
-            <label for="Author">Author</label>
-            <input asp-for="Author" type="text" class="form-control">
-            <span asp-validation-for="Author" class="text-danger"></span>
-            <label for="Body">Message</label>
-            <input asp-for="Body" type="text" class="form-control">
-            <span asp-validation-for="Body" class="text-danger"></span>
+            <label for="Message.Title">Title</label>
+            <input asp-for="Message.Title" type="text" class="form-control">
+            <span asp-validation-for="Message.Title" class="text-danger"></span>
+
+            <label for="Message.IdAuthor">Author:</label>
+            <select required asp-for="Message.IdAuthor">
+                <option value=""> Select an author... </option>
+                @foreach (var author in Model.Authors)
+                {
+                    <option value=@author.Key> @author.Value.Name </option>
+                }
+            </select>
+
+            <label for="Message.Body">Message</label>
+            <input asp-for="Message.Body" type="text" class="form-control">
+            <span asp-validation-for="Message.Body" class="text-danger"></span>
 
 
-            <input asp-for="CreatedAt" type="hidden" class="form-control" contenteditable="false">
-            <input asp-for="UpdatedAt" type="hidden" class="form-control" contenteditable="false">
-            <input asp-for="Id" type="hidden" class="form-control" contenteditable="false">
+            <input asp-for="Message.CreatedAt" type="hidden" class="form-control" contenteditable="false">
+            <input asp-for="Message.UpdatedAt" type="hidden" class="form-control" contenteditable="false">
+            <input asp-for="Message.Id" type="hidden" class="form-control" contenteditable="false">
         </div>
 
         <button type="submit" class="btn btn-sm btn-outline-primary">Send</button>
